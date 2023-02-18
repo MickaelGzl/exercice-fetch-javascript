@@ -4,11 +4,11 @@ let form = document.getElementsByTagName('form')[0];
 let loader = document.querySelector('.loader');
 
 loader.style.display = 'none'
-console.log('hey')
 
-form.addEventListener('submit', function(e){
+form.addEventListener('input', function(){
+    resultDisplay.innerHTML = ''
     loader.style.display = 'flex';
-    e.preventDefault();
+    // e.preventDefault();
     let search = searchInput.value;
     fetch(`https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${search}`)
     .then(response => {
@@ -22,6 +22,11 @@ form.addEventListener('submit', function(e){
                     let titleTag = document.createElement('h2');
                     let linkTag = document.createElement('a');
                     let descripTag = document.createElement('p');
+
+                    divTag.classList.add('result-item');
+                    titleTag.classList.add('result-title');
+                    linkTag.classList.add('result-link');
+                    descripTag.classList.add('result-snippet');
 
                     titleTag.innerHTML = title;
                     linkTag.href = `https://fr.wikipedia.org/?curid=${pageid}`;
